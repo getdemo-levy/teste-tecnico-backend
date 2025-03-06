@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+## getDemo Default
+node_modules
+.DS_STORE
+database.sqlite3
