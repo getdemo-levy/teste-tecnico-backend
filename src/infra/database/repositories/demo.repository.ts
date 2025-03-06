@@ -17,20 +17,20 @@ export class DemoRepository implements IDemoRepository {
       include: [{ model: FrameModel, as: 'frames' }],
     });
 
-    this.logger.info({ msg: 'DemoRepository.buscarPorId FIM', result });
+    this.logger.info({ msg: 'DemoRepository.buscarPorId FIM' });
 
     return result ? DemoMapper.toDomain(result) : null;
   }
 
-  async buscarTodos(): Promise<Demo[]> {
+  async buscarTodos(): Promise<Demo[] | null> {
     this.logger.info({ msg: 'DemoRepository.buscarTodos INÍCIO' });
 
     const results = await DemoModel.findAll({
       include: [{ model: FrameModel, as: 'frames' }],
     });
 
-    this.logger.info({ msg: 'DemoRepository.buscarTodos FIM', results });
+    this.logger.info({ msg: 'DemoRepository.buscarTodos FIM' });
 
-    return results.map(DemoMapper.toDomain);
+    return results.length ? results.map(DemoMapper.toDomain) : null;
   }
 }

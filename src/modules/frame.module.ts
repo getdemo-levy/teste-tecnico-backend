@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { FrameController } from "src/configs/frame/frame.controller";
+import { FrameController } from "src/configs/frame/interface/controller/frame.controller";
 
 @Module({
   imports: [],
