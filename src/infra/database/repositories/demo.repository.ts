@@ -16,7 +16,6 @@ export class DemoRepository implements IDemoRepository {
     const result = await DemoModel.findByPk(id, {
       include: [{ model: FrameModel, as: 'frames' }],
     });
-
     this.logger.info({ msg: 'DemoRepository.buscarPorId FIM' });
 
     return result ? DemoMapper.toDomain(result) : null;

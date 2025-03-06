@@ -1,27 +1,24 @@
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { IDemoRepository } from "src/shared/domain/adapters/demo.repository.adapter";
-import { Demo } from "src/shared/domain/entities/demo.entity";
-import { Response } from "src/shared/domain/entities/response";
+import { GetDemoParam } from "src/shared/domain/entities/get-demo-param";
 
 @Injectable()
-export class GetDemosUseCase {
+export class GetDemoByIdUseCase {
   constructor(
     @Inject('IDemoRepository')
     private readonly demoRepository: IDemoRepository,
   ) {}
-  async execute(): Promise<Response<Demo[]>> {
-    const demos = await this.demoRepository.buscarTodos()
-    const dados = demos?.map((demo) => {
+  async execute(getDemoParam: GetDemoParam) {
+    const demo = await this.demoRepository.buscarPorId(getDemoParam.id_demo)
+    if (demo) {
+      console.log('demo.name: ', demo.name)
       return {
-        id: demo.id,
-        name: demo.name
-      }
-    })
-    if (demos) {
-      return {
-        message: "Demos encontradas com sucesso!",
+        message: "Demo encontrado com sucesso!",
         statusCode: HttpStatus.OK,
-        dados,
+        dados: {
+          id: demo.id,
+          name: demo.name,
+        },
       }
     } else {
       return {

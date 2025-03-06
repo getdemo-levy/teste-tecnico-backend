@@ -1,17 +1,42 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { PinoLogger } from 'nestjs-pino';
 import { GetDemosUseCase } from '../../use-case/get-demos.use-case';
 import { Response } from 'src/shared/domain/entities/response';
+import { GetDemoBtIdDto } from '../dtos/get-demo-by-id.dto';
+import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
+import { GetDemoByIdUseCase } from '../../use-case/get-demo-by-id.use-case';
 
 @Controller('demos')
 export class DemoController {
   constructor(
     private readonly logger: PinoLogger,
     private readonly getDemosUseCase: GetDemosUseCase,
+    private readonly getDemoByIdUseCase: GetDemoByIdUseCase,
   ) { }
-  @Get('demos/:id_demo')
-  getDemo(): { status: string } {
-    return { status: 'ok' };
+  @Get('/:id_demo')
+  async getDemo(@Param() params: GetDemoBtIdDto): Promise<Response<any>> {
+    this.logger.info({
+      message: 'DemoController.getDemo START'
+    })
+    try {
+      const getDemoParam = GetDemoParam.fromDto(params);
+      const demo = await this.getDemoByIdUseCase.execute(getDemoParam);
+      this.logger.info({
+        message: 'DemoController.getDemo END',
+        demo
+      })
+      return demo;
+    } catch (error) {
+      this.logger.error({
+        message: 'DemoController.getDemo ERROR',
+        error
+      })
+      return {
+        message: `Erro ao receber demo de id: ${params.id_demo}`,
+        statusCode: error.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR,
+        error
+      }
+    }
   }
 
   @Get('')
