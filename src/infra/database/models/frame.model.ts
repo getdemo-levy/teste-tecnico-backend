@@ -1,6 +1,9 @@
-import { Model, PrimaryKey, Default, DataType, Column, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Model, PrimaryKey, Default, DataType, Column, ForeignKey, BelongsTo, Table } from "sequelize-typescript";
 import { DemoModel } from "./demo.model";
 
+@Table({
+  tableName: 'Frame',
+})
 export class FrameModel extends Model {
   @PrimaryKey
   @Default(DataType.UUIDV4)

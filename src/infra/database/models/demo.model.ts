@@ -3,7 +3,6 @@ import { FrameModel } from "./frame.model";
 
 @Table({
   tableName: 'Demo',
-  timestamps: false,
 })
 export class DemoModel extends Model {
   @PrimaryKey
