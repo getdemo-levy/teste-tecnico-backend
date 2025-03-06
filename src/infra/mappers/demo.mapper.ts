@@ -6,8 +6,8 @@ export class DemoMapper {
   static toDomain(model: DemoModel): Demo {
     return new Demo(
       model.id,
-      model.name,
-      model.frames?.map(FrameMapper.toDomain),
+      model.get('name'),
+      model.get('frames')?.map((frame: any) => FrameMapper.toDomain(frame)),
     );
   }
 

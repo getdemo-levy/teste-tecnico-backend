@@ -11,11 +11,17 @@ export class GetDemosUseCase {
   ) {}
   async execute(): Promise<Response<Demo[]>> {
     const demos = await this.demoRepository.buscarTodos()
+    const dados = demos?.map((demo) => {
+      return {
+        id: demo.id,
+        name: demo.name
+      }
+    })
     if (demos) {
       return {
         message: "Demos encontradas com sucesso!",
         statusCode: HttpStatus.OK,
-        dados: demos,
+        dados,
       }
     } else {
       return {
