@@ -11,7 +11,6 @@ export class GetDemoByIdUseCase {
   async execute(getDemoParam: GetDemoParam) {
     const demo = await this.demoRepository.buscarPorId(getDemoParam.id_demo)
     if (demo) {
-      console.log('demo.name: ', demo.name)
       return {
         message: "Demo encontrado com sucesso!",
         statusCode: HttpStatus.OK,

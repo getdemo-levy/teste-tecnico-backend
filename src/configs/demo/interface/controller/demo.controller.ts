@@ -2,7 +2,7 @@ import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { PinoLogger } from 'nestjs-pino';
 import { GetDemosUseCase } from '../../use-case/get-demos.use-case';
 import { Response } from 'src/shared/domain/entities/response';
-import { GetDemoBtIdDto } from '../dtos/get-demo-by-id.dto';
+import { GetDemoByIdDto } from '../dtos/get-demo-by-id.dto';
 import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 import { GetDemoByIdUseCase } from '../../use-case/get-demo-by-id.use-case';
 
@@ -14,7 +14,7 @@ export class DemoController {
     private readonly getDemoByIdUseCase: GetDemoByIdUseCase,
   ) { }
   @Get('/:id_demo')
-  async getDemo(@Param() params: GetDemoBtIdDto): Promise<Response<any>> {
+  async getDemo(@Param() params: GetDemoByIdDto): Promise<Response<any>> {
     this.logger.info({
       message: 'DemoController.getDemo START'
     })
