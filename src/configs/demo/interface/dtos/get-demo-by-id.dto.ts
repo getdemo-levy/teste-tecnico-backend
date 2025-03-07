@@ -1,7 +1,7 @@
 import { IsUUID, IsNotEmpty } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class GetDemoBtIdDto {
+export class GetDemoByIdDto {
   @Transform(({ value }) => String(value))
   @IsUUID()
   @IsNotEmpty()

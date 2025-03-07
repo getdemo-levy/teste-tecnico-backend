@@ -1,4 +1,4 @@
-import { GetDemoBtIdDto } from "src/configs/demo/interface/dtos/get-demo-by-id.dto";
+import { GetDemoByIdDto } from "src/configs/demo/interface/dtos/get-demo-by-id.dto";
 
 export class GetDemoParam {
   id_demo: string;
@@ -6,7 +6,7 @@ export class GetDemoParam {
     Object.assign(this, props);
   }
   static fromDto(
-    dto: GetDemoBtIdDto,
+    dto: GetDemoByIdDto,
   ): GetDemoParam {
     return new GetDemoParam({ ...dto });
   }
