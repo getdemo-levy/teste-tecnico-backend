@@ -3,12 +3,10 @@ import { DemoModel } from "src/infra/database/models/demo.model";
 import { FrameModel } from "src/infra/database/models/frame.model";
 import { AppModule } from "src/modules/app.module";
 
-/* WARNING THIS WILL DROP THE CURRENT DATABASE */
 seed();
 
 async function seed() {
   const app = await NestFactory.createApplicationContext(AppModule);
-  // create tables
   await DemoModel.sync({ force: true });
   await FrameModel.sync({ force: true });
   await Promise.all([

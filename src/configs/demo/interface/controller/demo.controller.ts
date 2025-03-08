@@ -6,7 +6,7 @@ import { GetDemoByIdDto } from '../dtos/get-demo-by-id.dto';
 import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 import { GetDemoByIdUseCase } from '../../use-case/get-demo-by-id.use-case';
 
-@Controller('demos')
+@Controller('api/demos')
 export class DemoController {
   constructor(
     private readonly logger: PinoLogger,

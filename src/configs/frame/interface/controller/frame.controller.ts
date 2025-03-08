@@ -5,7 +5,7 @@ import { GetDemoFramesUseCase } from '../../use-case/get-demo-frames.use-case';
 import { GetDemoByIdDto } from 'src/configs/demo/interface/dtos/get-demo-by-id.dto';
 import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 
-@Controller('demos/:id_demo/frames')
+@Controller('api/demos/:id_demo/frames')
 export class FrameController {
   constructor(
       private readonly logger: PinoLogger,
