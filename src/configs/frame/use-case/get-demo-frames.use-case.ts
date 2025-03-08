@@ -12,7 +12,7 @@ export class GetDemoFramesUseCase {
   ) {}
   async execute(getDemoParam: GetDemoParam): Promise<Response<Partial<Frame>[]>> {
     const frames = await this.frameRepository.findByDemo(getDemoParam.id_demo);
-    const dados = frames?.map((frame) => {
+    const data = frames?.map((frame) => {
       return {
         id: frame.id,
         order: frame.order,
@@ -24,11 +24,11 @@ export class GetDemoFramesUseCase {
       return {
         message: "Frames encontrados com sucesso!",
         statusCode: HttpStatus.OK,
-        dados,
+        data,
       }
     } else {
       return {
-        message: `Nenhuma frame foi encontrada na base de dados para o demo passado. ID: ${getDemoParam.id_demo}`,
+        message: `Nenhuma frame foi encontrada na base de data para o demo passado. ID: ${getDemoParam.id_demo}`,
         statusCode: HttpStatus.NO_CONTENT,
       }
     }

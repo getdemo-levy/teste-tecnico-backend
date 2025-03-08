@@ -7,12 +7,14 @@ import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 import { UpdateFrameDto } from 'src/configs/demo/interface/dtos/update-frame.dto';
 import { UpdateFrameParam } from 'src/shared/domain/entities/update-frame-param';
 import { UpdatedHtmlDto } from 'src/configs/demo/interface/dtos/updated-html.dto';
+import { UpdateFrameUseCase } from '../../use-case/update-frame.use-case';
 
 @Controller('api/demos/:id_demo/frames')
 export class FrameController {
   constructor(
       private readonly logger: PinoLogger,
       private readonly getDemoFramesUseCase: GetDemoFramesUseCase,
+      private readonly updateFrameUseCase: UpdateFrameUseCase,
     ) { }
   @Get('')
   async getDemoFrames(@Param() params: GetDemoByIdDto): Promise<Response<any>> {
@@ -47,7 +49,7 @@ export class FrameController {
     })
     try {
       const getDemoParam = UpdateFrameParam.fromDto(params, body);
-      const demos = await this.getDemoFramesUseCase.execute(getDemoParam);
+      const demos = await this.updateFrameUseCase.execute(getDemoParam);
       this.logger.info({
         message: 'FrameController.updateFrame END',
         demos
