@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Put } from '@nestjs/common';
 import { PinoLogger } from 'nestjs-pino';
 import { Response } from 'src/shared/domain/entities/response';
 import { GetDemoFramesUseCase } from '../../use-case/get-demo-frames.use-case';
@@ -6,6 +6,7 @@ import { GetDemoByIdDto } from 'src/configs/demo/interface/dtos/get-demo-by-id.d
 import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 import { UpdateFrameDto } from 'src/configs/demo/interface/dtos/update-frame.dto';
 import { UpdateFrameParam } from 'src/shared/domain/entities/update-frame-param';
+import { UpdatedHtmlDto } from 'src/configs/demo/interface/dtos/updated-html.dto';
 
 @Controller('api/demos/:id_demo/frames')
 export class FrameController {
@@ -40,12 +41,12 @@ export class FrameController {
   }
 
   @Put('/:id_frame')
-  async updateFrame(@Param() params: UpdateFrameDto): Promise<Response<any>> {
+  async updateFrame(@Param() params: UpdateFrameDto, @Body() body: UpdatedHtmlDto): Promise<Response<any>> {
     this.logger.info({
       message: 'FrameController.updateFrame START'
     })
     try {
-      const getDemoParam = UpdateFrameParam.fromDto(params);
+      const getDemoParam = UpdateFrameParam.fromDto(params, body);
       const demos = await this.getDemoFramesUseCase.execute(getDemoParam);
       this.logger.info({
         message: 'FrameController.updateFrame END',
