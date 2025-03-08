@@ -11,7 +11,7 @@ export class GetDemoFramesUseCase {
     private readonly frameRepository: IFrameRepository,
   ) {}
   async execute(getDemoParam: GetDemoParam): Promise<Response<Partial<Frame>[]>> {
-    const frames = await this.frameRepository.buscarPorDemo(getDemoParam.id_demo);
+    const frames = await this.frameRepository.findByDemo(getDemoParam.id_demo);
     const dados = frames?.map((frame) => {
       return {
         id: frame.id,
