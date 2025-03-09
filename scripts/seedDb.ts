@@ -29,15 +29,13 @@ async function seedDatabase() {
       }
     ]);
     const htmls = [demo1html, demo2html, demo3html];
-    let counter = 0;
 
-    await Promise.all(demos.map(async (demo) => {
+    await Promise.all(demos.map(async (demo, index) => {
       await FrameModel.create({
         demoId: demo.id,
-        html: htmls[counter],
+        html: htmls[index],
         order: 1
       });
-      counter ++;
     }));
 
     await Promise.all([
