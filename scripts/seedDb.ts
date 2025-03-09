@@ -1,6 +1,9 @@
 import { Sequelize } from 'sequelize-typescript';
 import { DemoModel } from '../src/infra/database/models/demo.model';
 import { FrameModel } from '../src/infra/database/models/frame.model';
+import { demo1html } from './demo-1';
+import { demo2html } from './demo-2';
+import { demo3html } from './demo-3';
 
 async function seedDatabase() {
   const sequelize = new Sequelize({
@@ -14,22 +17,28 @@ async function seedDatabase() {
     await sequelize.sync({ force: true });
     console.log('Database synced successfully!');
 
-    const demo = await DemoModel.create({
-      name: 'Demo Example',
-    });
-
-    await FrameModel.bulkCreate([
+    const demos = await DemoModel.bulkCreate([
       {
-        demoId: demo.id,
-        html: '<div>Frame 1</div>',
-        order: 1,
+        name: 'Demo Example',
       },
       {
-        demoId: demo.id,
-        html: '<div>Frame 2</div>',
-        order: 2,
+        name: 'Contato',
       },
+      {
+        name: 'Card de Produto',
+      }
     ]);
+    const htmls = [demo1html, demo2html, demo3html];
+    let counter = 0;
+
+    await Promise.all(demos.map(async (demo) => {
+      await FrameModel.create({
+        demoId: demo.id,
+        html: htmls[counter],
+        order: 1
+      });
+      counter ++;
+    }));
 
     await Promise.all([
       DemoModel.create({
