@@ -25,7 +25,6 @@ export class UpdateFrameUseCase {
     return {
       message: updatedFrame ? 'Frame atualizado com sucesso!' : 'Nenhum frame foi atualizado',
       statusCode: updatedFrame ? HttpStatus.OK : HttpStatus.NOT_MODIFIED,
-      ...(updatedFrame ?? {data: updatedFrame}),
     }
   }
 }

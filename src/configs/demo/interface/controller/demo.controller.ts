@@ -1,10 +1,10 @@
-import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { PinoLogger } from 'nestjs-pino';
 import { GetDemosUseCase } from '../../use-case/get-demos.use-case';
-import { Response } from 'src/shared/domain/entities/response';
 import { GetDemoByIdDto } from '../dtos/get-demo-by-id.dto';
 import { GetDemoParam } from 'src/shared/domain/entities/get-demo-param';
 import { GetDemoByIdUseCase } from '../../use-case/get-demo-by-id.use-case';
+import { Response } from 'express';
 
 @Controller('api/demos')
 export class DemoController {
@@ -14,7 +14,7 @@ export class DemoController {
     private readonly getDemoByIdUseCase: GetDemoByIdUseCase,
   ) { }
   @Get('/:id_demo')
-  async getDemo(@Param() params: GetDemoByIdDto): Promise<Response<any>> {
+  async getDemo(@Param() params: GetDemoByIdDto, @Res() res: Response) {
     this.logger.info({
       message: 'DemoController.getDemo START'
     })
@@ -25,7 +25,10 @@ export class DemoController {
         message: 'DemoController.getDemo END',
         demo
       })
-      return demo;
+      return res.status(demo.statusCode).send({
+        message: demo.message,
+        data: demo.data,
+      });
     } catch (error) {
       this.logger.error({
         message: 'DemoController.getDemo ERROR',
@@ -40,7 +43,7 @@ export class DemoController {
   }
 
   @Get('')
-  async getDemos(): Promise<Response<any>> {
+  async getDemos(@Res() res: Response) {
     this.logger.info({
       message: 'DemoController.getDemos START'
     })
@@ -50,7 +53,10 @@ export class DemoController {
         message: 'DemoController.getDemos END',
         demos
       })
-      return demos;
+      return res.status(demos.statusCode).send({
+        message: demos.message,
+        data: demos.data,
+      });
     } catch (error) {
       this.logger.error({
         message: 'DemoController.getDemos ERROR',

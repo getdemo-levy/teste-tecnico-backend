@@ -10,19 +10,20 @@ export class FrameRepository implements IFrameRepository {
   constructor(private readonly logger: PinoLogger) { }
 
   async findByDemo(demoId: string): Promise<Frame[]> {
-    this.logger.info({ msg: 'FrameRepository.findByDemo INÍCIO', demoId });
+    this.logger.info({ msg: 'FrameRepository.findByDemo START', demoId });
 
     const results = await FrameModel.findAll({ where: { demoId } });
 
-    this.logger.info({ msg: 'FrameRepository.findByDemo FIM', results });
+    this.logger.info({ msg: 'FrameRepository.findByDemo END', results });
 
     return results.map(FrameMapper.toDomain);
   }
 
-  async update(id: string, data: Partial<Frame>): Promise<Frame | null> {
+  async update(id: string, data: Partial<Frame>): Promise<boolean | null> {
     this.logger.info({
-      msg: 'FrameRepository.update FIM',
+      msg: 'FrameRepository.update START',
       id,
+      data,
     });
 
     const [updatedRows, updatedModels] = await FrameModel.update(
@@ -30,16 +31,14 @@ export class FrameRepository implements IFrameRepository {
       {
         where: { id },
         returning: true,
+        logging: true,
       },
     );
 
     if (updatedRows === 0) return null;
-
     this.logger.info({
-      msg: 'FrameRepository.update FIM',
+      msg: 'FrameRepository.update END',
     });
-    return updatedModels.length > 0
-      ? FrameMapper.toDomain(updatedModels[0])
-      : null;
+    return true
   }
 }
