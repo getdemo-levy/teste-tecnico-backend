@@ -22,11 +22,11 @@ async function seedDatabase() {
         name: 'Demo Example',
       },
       {
-        name: 'Contato',
+        name: 'Card de Produto',
       },
       {
-        name: 'Card de Produto',
-      }
+        name: 'Contato',
+      },
     ]);
     const htmls = [demo1html, demo2html, demo3html];
 
