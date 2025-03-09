@@ -134,5 +134,5 @@ dist
 ## getDemo Default
 node_modules
 .DS_STORE
-# database.sqlite
+database.sqlite
 yarn.lock
