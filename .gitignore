@@ -134,3 +134,4 @@ dist
 ## getDemo Default
 node_modules
 .DS_STORE
+database.sqlite
