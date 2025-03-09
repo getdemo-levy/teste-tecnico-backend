@@ -16,7 +16,7 @@ class SequelizeConfigService implements SequelizeOptionsFactory {
       dialect: 'sqlite',
       storage: this.configService.get<string>('SQLITE_PATH') || 'database.sqlite',
       autoLoadModels: true,
-      logging: false,
+      // logging: false,
       synchronize: true,
       define: {
         timestamps: false,

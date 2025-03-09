@@ -1,5 +1,6 @@
 import { Frame } from "../entities/frame.entity";
 
 export interface IFrameRepository {
-  buscarPorDemo(demoId: string): Promise<Frame[]>;
+  findByDemo(demoId: string): Promise<Frame[]>;
+  update(id: string, data: Partial<Frame>): Promise<boolean | null>;
 }

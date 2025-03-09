@@ -14,14 +14,14 @@ export class GetDemoByIdUseCase {
       return {
         message: "Demo encontrado com sucesso!",
         statusCode: HttpStatus.OK,
-        dados: {
+        data: {
           id: demo.id,
           name: demo.name,
         },
       }
     } else {
       return {
-        message: "Nenhuma demo foi encontrada na base de dados.",
+        message: "Nenhuma demo foi encontrada na base de data.",
         statusCode: HttpStatus.NO_CONTENT,
       }
     }

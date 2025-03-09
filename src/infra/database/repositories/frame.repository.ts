@@ -9,13 +9,36 @@ import { FrameModel } from "../models/frame.model";
 export class FrameRepository implements IFrameRepository {
   constructor(private readonly logger: PinoLogger) { }
 
-  async buscarPorDemo(demoId: string): Promise<Frame[]> {
-    this.logger.info({ msg: 'FrameRepository.buscarPorDemo INÍCIO', demoId });
+  async findByDemo(demoId: string): Promise<Frame[]> {
+    this.logger.info({ msg: 'FrameRepository.findByDemo START', demoId });
 
     const results = await FrameModel.findAll({ where: { demoId } });
 
-    this.logger.info({ msg: 'FrameRepository.buscarPorDemo FIM', results });
+    this.logger.info({ msg: 'FrameRepository.findByDemo END', results });
 
     return results.map(FrameMapper.toDomain);
+  }
+
+  async update(id: string, data: Partial<Frame>): Promise<boolean | null> {
+    this.logger.info({
+      msg: 'FrameRepository.update START',
+      id,
+      data,
+    });
+
+    const [updatedRows, updatedModels] = await FrameModel.update(
+      data,
+      {
+        where: { id },
+        returning: true,
+        logging: true,
+      },
+    );
+
+    if (updatedRows === 0) return null;
+    this.logger.info({
+      msg: 'FrameRepository.update END',
+    });
+    return true
   }
 }

@@ -4,8 +4,8 @@ import { DatabaseModule } from './database.module';
 import { PinoLoggerModule } from './logger.module';
 import { ConfigModule } from '@nestjs/config';
 import { databaseConfig } from 'src/configs/database/database.config';
-import { FrameModule } from './frame.module';
-import { DemoModule } from './demo.module';
+import { FrameModule } from '../configs/frame/frame.module';
+import { DemoModule } from '../configs/demo/demo.module';
 
 @Module({
   imports: [
